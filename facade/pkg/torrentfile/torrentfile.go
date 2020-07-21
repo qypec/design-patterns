@@ -2,7 +2,8 @@ package torrentfile
 
 import (
 	"errors"
-	"fmt"
+
+	"github.com/design-patterns/facade/pkg/api/v1"
 )
 
 // Accessor provides functionality for torrentFile structure
@@ -25,17 +26,14 @@ func (f *torrentFile)GetName() (name string) {
 
 // PrepareToDistribution validates the file name and defines the upload method
 func (f *torrentFile)PrepareToDistribution(filename string) (err error) {
-	const endgame = 1
-	const separation = 2
-
 	if f.name != filename {
-		err = errors.New(fmt.Sprintf("%v: file not found\n", filename))
+		err = errors.New(filename + v1.FileNotFoundError)
 		return
 	}
 
-	f.mode = endgame
-	if f.size < 1024 {
-		f.mode = separation
+	f.mode = v1.Endgame
+	if f.size <= v1.MaxFileSizeForEndgame {
+		f.mode = v1.Separation
 	}
 	return
 }

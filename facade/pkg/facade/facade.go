@@ -2,6 +2,8 @@ package facade
 
 import (
 	"fmt"
+
+	"github.com/design-patterns/facade/pkg/api/v1"
 )
 
 type accessor interface {
@@ -35,7 +37,7 @@ func (t *torrentClient)TurnDistribution(filename string) (err error) {
 	if err != nil {
 		return
 	}
-	fmt.Println("File distribution started successfully")
+	fmt.Println(v1.DistributionStartedMsg)
 	return
 }
 

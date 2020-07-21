@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
+
+	"github.com/design-patterns/facade/pkg/api/v1"
 )
 
 type accessor interface {
@@ -27,19 +29,19 @@ func (s *torrentServer)Upload(filename string) (err error) {
 		return
 	}
 
-	fmt.Printf("%v: file has been successfully uploaded to the server %v\n", filename, string(s.address))
+	fmt.Println(filename + v1.FileUploadedOnServerMsg)
 	return
 }
 
 func (s *torrentServer)ping() (err error) {
-	fmt.Printf("Ping %v...\n", string(s.address))
+	fmt.Println(v1.PingMsg + string(s.address))
 
 	serverRequestStatus := rand.Intn(2)
 	if serverRequestStatus == 0 {
-		err = errors.New(fmt.Sprintf("server %v status - KO\n", string(s.address)))
+		err = errors.New(v1.ServerStatusKO)
 		return
 	}
-	fmt.Println("The connection to the server is established: server_status - OK")
+	fmt.Println(v1.ServerStatusOK)
 	return
 }
 
