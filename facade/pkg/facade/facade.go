@@ -2,19 +2,25 @@ package facade
 
 import (
 	"fmt"
-	"github.com/design-patterns/facade/pkg/tfile"
-	"github.com/design-patterns/facade/pkg/tserver"
 )
 
+type accessor interface {
+	PrepareToDistribution(filename string) (err error)
+	GetName() (name string)
+}
+
+type uploader interface {
+	Upload(file accessor) (err error)
+}
 
 // TorrentDistributor controls the files distribution
 type TorrentDistributor interface {
-	TurnDistribution(filename string) error
+	TurnDistribution(filename string) (err error)
 }
 
 type torrentClient struct {
-	server		tserver.Uploader
-	file		tfile.TorrentFile
+	server		uploader
+	file		accessor
 }
 
 // Turn Distributor starts the file distribution process.
@@ -34,9 +40,9 @@ func (t *torrentClient)TurnDistribution(filename string) (err error) {
 }
 
 // NewTorrentClient creates an instance of the TorrentDistributor
-func NewTorrentClient(serverAddress string, fileToDist tfile.TorrentFile) TorrentDistributor {
+func NewTorrentClient(server uploader, fileToDist accessor) TorrentDistributor {
 	return &torrentClient{
-		server: tserver.NewUploader(serverAddress),
+		server: server,
 		file: fileToDist,
 	}
 }

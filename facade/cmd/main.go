@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/design-patterns/facade/pkg/facade"
-	"github.com/design-patterns/facade/pkg/tfile"
+	"github.com/design-patterns2/facade/pkg/facade"
+	"github.com/design-patterns2/facade/pkg/torrentfile"
+	"github.com/design-patterns2/facade/pkg/torrentserver"
 )
 
 const (
@@ -12,7 +13,8 @@ const (
 )
 
 func main() {
-	file := tfile.NewTorrentFile(filename, filesize)
-	client := facade.NewTorrentClient(torrentServerIP, file)
+	file := torrentfile.NewTorrentFile(filename, filesize)
+	server := torrentserver.NewUploader([]byte(torrentServerIP))
+	client := facade.NewTorrentClient(server, file)
 	client.TurnDistribution(filename)
 }
