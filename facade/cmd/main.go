@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/design-patterns2/facade/pkg/facade"
-	"github.com/design-patterns2/facade/pkg/torrentfile"
-	"github.com/design-patterns2/facade/pkg/torrentserver"
+	"github.com/design-patterns/facade/pkg/facade"
+	"github.com/design-patterns/facade/pkg/torrentfile"
+	"github.com/design-patterns/facade/pkg/torrentserver"
 )
 
 const (

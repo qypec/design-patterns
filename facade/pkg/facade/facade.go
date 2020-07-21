@@ -10,7 +10,7 @@ type accessor interface {
 }
 
 type uploader interface {
-	Upload(file accessor) (err error)
+	Upload(filename string) (err error)
 }
 
 // TorrentDistributor controls the files distribution
@@ -31,7 +31,7 @@ func (t *torrentClient)TurnDistribution(filename string) (err error) {
 		return
 	}
 
-	err = t.server.Upload(t.file)
+	err = t.server.Upload(t.file.GetName())
 	if err != nil {
 		return
 	}

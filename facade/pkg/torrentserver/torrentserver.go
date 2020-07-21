@@ -13,7 +13,7 @@ type accessor interface {
 
 // Uploader connects and uploads the file
 type Uploader interface {
-	Upload(file accessor) (err error)
+	Upload(filename string) (err error)
 }
 
 type torrentServer struct {
@@ -21,13 +21,13 @@ type torrentServer struct {
 }
 
 // Upload uploads a file to the server at its address
-func (s *torrentServer)Upload(file accessor) (err error) {
+func (s *torrentServer)Upload(filename string) (err error) {
 	err = s.ping()
 	if err != nil {
 		return
 	}
 
-	fmt.Printf("%v: file has been successfully uploaded to the server %v\n", file.GetName(), string(s.address))
+	fmt.Printf("%v: file has been successfully uploaded to the server %v\n", filename, string(s.address))
 	return
 }
 
