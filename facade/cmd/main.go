@@ -7,13 +7,13 @@ import (
 )
 
 const (
-	filename = "confidential_data_wildberries.dump.sql"
-	filesize = 64
+	filename        = "confidential_data_wildberries.dump.sql"
+	filesize        = 64
 	torrentServerIP = "127.0.0.1"
 )
 
 func main() {
-	file := torrentfile.NewTorrentFile(filename, filesize)
+	file := torrentfile.NewAccessor(filename, filesize)
 	server := torrentserver.NewUploader([]byte(torrentServerIP))
 	client := facade.NewTorrentClient(server, file)
 	client.TurnDistribution(filename)

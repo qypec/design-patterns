@@ -9,6 +9,8 @@ import (
 type accessor interface {
 	PrepareToDistribution(filename string) (err error)
 	GetName() (name string)
+	GetMode() (mode int)
+	GetSize() (size int)
 }
 
 type uploader interface {
@@ -21,13 +23,13 @@ type TorrentDistributor interface {
 }
 
 type torrentClient struct {
-	server		uploader
-	file		accessor
+	server uploader
+	file   accessor
 }
 
 // Turn Distributor starts the file distribution process.
 // Before distribution you need to prepare the file and establish a connection to the torrent server.
-func (t *torrentClient)TurnDistribution(filename string) (err error) {
+func (t *torrentClient) TurnDistribution(filename string) (err error) {
 	err = t.file.PrepareToDistribution(filename)
 	if err != nil {
 		return
@@ -45,6 +47,6 @@ func (t *torrentClient)TurnDistribution(filename string) (err error) {
 func NewTorrentClient(server uploader, fileToDist accessor) TorrentDistributor {
 	return &torrentClient{
 		server: server,
-		file: fileToDist,
+		file:   fileToDist,
 	}
 }

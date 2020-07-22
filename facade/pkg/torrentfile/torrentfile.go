@@ -10,6 +10,8 @@ import (
 type Accessor interface {
 	PrepareToDistribution(filename string) (err error)
 	GetName() (name string)
+	GetMode() (mode int)
+	GetSize() (size int)
 }
 
 type torrentFile struct {
@@ -19,27 +21,39 @@ type torrentFile struct {
 }
 
 // GetName returns the file name
-func (f *torrentFile)GetName() (name string) {
+func (f *torrentFile) GetName() (name string) {
 	name = f.name
 	return
 }
 
+// GetMode returns the file mode
+func (f *torrentFile) GetMode() (mode int) {
+	mode = f.mode
+	return
+}
+
+// GetSize returns the file size
+func (f *torrentFile) GetSize() (size int) {
+	size = f.size
+	return
+}
+
 // PrepareToDistribution validates the file name and defines the upload method
-func (f *torrentFile)PrepareToDistribution(filename string) (err error) {
+func (f *torrentFile) PrepareToDistribution(filename string) (err error) {
 	if f.name != filename {
 		err = errors.New(filename + v1.FileNotFoundError)
 		return
 	}
 
 	f.mode = v1.Endgame
-	if f.size <= v1.MaxFileSizeForEndgame {
+	if f.size > v1.MaxFileSizeForEndGame {
 		f.mode = v1.Separation
 	}
 	return
 }
 
-// NewTorrentFile creates an instance of the Accessor
-func NewTorrentFile(filename string, filesize int) Accessor {
+// NewAccessor creates an instance of the Accessor
+func NewAccessor(filename string, filesize int) Accessor {
 	return &torrentFile{
 		name: filename,
 		size: filesize,
