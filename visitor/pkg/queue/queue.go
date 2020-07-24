@@ -20,11 +20,6 @@ type Queue interface {
 	Accept(v visitor) (ok bool, err error)
 }
 
-type elem struct {
-	value int
-	next  *elem
-}
-
 type queue struct {
 	head *elem
 	len  int
@@ -89,13 +84,6 @@ func (q *queue) pop() (value int) {
 		q.len--
 	}
 	return
-}
-
-func newElem(value int) *elem {
-	return &elem{
-		value: value,
-		next:  nil,
-	}
 }
 
 // NewQueue creates an instance of the Queue

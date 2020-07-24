@@ -19,11 +19,6 @@ type List interface {
 	Accept(v visitor) (err error)
 }
 
-type elem struct {
-	value int
-	next  *elem
-}
-
 type list struct {
 	head *elem
 	len  int
@@ -77,13 +72,6 @@ func (l *list) pop() (value int) {
 		l.len--
 	}
 	return
-}
-
-func newElem(value int) *elem {
-	return &elem{
-		value: value,
-		next:  nil,
-	}
 }
 
 // NewList creates an instance of the List

@@ -19,11 +19,6 @@ type Stack interface {
 	Accept(v visitor) (counter int, err error)
 }
 
-type elem struct {
-	value int
-	prev  *elem
-}
-
 type stack struct {
 	head *elem // The head element of the stack is the last element added
 	len  int
@@ -79,13 +74,6 @@ func (s *stack) pop() (value int, empty bool) {
 	s.head = s.head.prev
 	s.len--
 	return
-}
-
-func newElem(value int) *elem {
-	return &elem{
-		value: value,
-		prev:  nil,
-	}
 }
 
 // NewStack creates an instance of the Stack
