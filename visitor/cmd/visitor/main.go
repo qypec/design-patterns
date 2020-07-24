@@ -26,14 +26,14 @@ func main() {
 	q.Push(3)
 
 	arrL := visitor.NewArray([]int{10, 20, 30, 40, 50})
-	arrL.JoinToList(l)
+	l.Accept(arrL)
 	fmt.Println(l)
 
 	arrS := visitor.NewArray([]int{100, 200, 300, 400, 500})
-	arrS.JoinToStack(s)
+	s.Accept(arrS)
 	fmt.Println(s)
 
 	arrQ := visitor.NewArray([]int{1000, 2000, 3000, 4000, 5000})
-	arrQ.JoinToQueue(q)
+	q.Accept(arrQ)
 	fmt.Println(q)
 }

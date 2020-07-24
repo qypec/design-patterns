@@ -16,6 +16,7 @@ type Stack interface {
 	Pop() (value int)
 	Len() (len int)
 	String() (str string)
+	Accept(v visitor)
 }
 
 type elem struct {
