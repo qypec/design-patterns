@@ -7,7 +7,7 @@ import (
 )
 
 type visitor interface {
-	JoinToList(l List)
+	JoinToList(l List) (err error)
 }
 
 // List interface describes the behavior of a single-linked list
@@ -16,7 +16,7 @@ type List interface {
 	Pop() (value int)
 	Len() (len int)
 	String() (str string)
-	Accept(v visitor)
+	Accept(v visitor) (err error)
 }
 
 type elem struct {
@@ -30,8 +30,8 @@ type list struct {
 }
 
 // Accept accepts the visitor
-func (l *list) Accept(v visitor) {
-	v.JoinToList(l)
+func (l *list) Accept(v visitor) (err error) {
+	return v.JoinToList(l)
 }
 
 // Push creates a new list element with a value and pushes it to the head of the list

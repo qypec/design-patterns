@@ -8,12 +8,13 @@ import (
 )
 
 const (
-	methodNamePush = "Push"
-	methodNamePop  = "Pop"
-	methodNameLen  = "Len"
+	methodNamePush         = "Push"
+	methodNamePop          = "Pop"
+	methodNameLen          = "Len"
+	notEqualStacksErrorMsg = "Not equal stacks"
 )
 
-func TestList_Push(t *testing.T) {
+func TestStack_Push(t *testing.T) {
 	expected := &stack{
 		head: &elem{
 			value: 2,
@@ -29,24 +30,28 @@ func TestList_Push(t *testing.T) {
 		s.Push(1)
 		s.Push(2)
 		if !reflect.DeepEqual(s, expected) {
-			t.Error("Not equal stacks\n", s, expected)
+			t.Error(notEqualStacksErrorMsg, s, expected)
 		}
 	})
 }
 
-func TestList_Pop(t *testing.T) {
+func TestStack_Pop(t *testing.T) {
+	var value int
 	t.Run(methodNamePop, func(t *testing.T) {
 		s := NewStack()
 		s.Push(1)
-		assert.Equal(t, 1, s.Pop())
+		value, _ = s.Pop()
+		assert.Equal(t, 1, value)
 		s.Push(2)
 		s.Push(3)
-		assert.Equal(t, 3, s.Pop())
-		assert.Equal(t, 2, s.Pop())
+		value, _ = s.Pop()
+		assert.Equal(t, 3, value)
+		value, _ = s.Pop()
+		assert.Equal(t, 2, value)
 	})
 }
 
-func TestList_Len(t *testing.T) {
+func TestStack_Len(t *testing.T) {
 	t.Run(methodNameLen, func(t *testing.T) {
 		s := NewStack()
 		s.Push(1)

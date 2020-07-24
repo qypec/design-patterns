@@ -5,10 +5,10 @@ const (
 	NilString = "nil"
 	LineBreak = "\n"
 
-	PushedToListMsgStart  = "Pushed to the list "
-	PushedToListMsgEnd    = " items"
-	PushedToStackMsgStart = "Pushed to the stack "
-	PushedToStackMsgEnd   = " items"
-	PushedToQueueMsgStart = "Pushed to the queue "
-	PushedToQueueMsgEnd   = " items"
+	PushedToListMsgStart = "Pushed to the list "
+	PushedToListMsgEnd   = " items"
+
+	ErrorMsgNothingToJoin   = "nothing to join"
+	ErrorMsg404             = "page not found"
+	ErrorMsgNothingToSearch = "nothing to search"
 )

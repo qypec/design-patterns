@@ -8,9 +8,11 @@ import (
 )
 
 const (
-	methodNamePush = "Push"
-	methodNamePop  = "Pop"
-	methodNameLen  = "Len"
+	methodNamePush   = "Push"
+	methodNamePop    = "Pop"
+	methodNameLen    = "Len"
+	methodNameSearch = "Search"
+	notEqualQueues   = "Not equal queues"
 )
 
 func TestQueue_Push(t *testing.T) {
@@ -29,7 +31,7 @@ func TestQueue_Push(t *testing.T) {
 		q.Push(1)
 		q.Push(2)
 		if !reflect.DeepEqual(q, expected) {
-			t.Error("Not equal queues\n", q, expected)
+			t.Error(notEqualQueues, q, expected)
 		}
 	})
 }
@@ -56,5 +58,15 @@ func TestQueue_Len(t *testing.T) {
 		assert.Equal(t, 3, q.Len())
 		q.Pop()
 		assert.Equal(t, 2, q.Len())
+	})
+}
+
+func TestQueue_Search(t *testing.T) {
+	t.Run(methodNameSearch, func(t *testing.T) {
+		q := NewQueue()
+		assert.Equal(t, false, q.Search(1))
+		q.Push(1)
+		assert.Equal(t, true, q.Search(1))
+		assert.Equal(t, false, q.Search(100))
 	})
 }

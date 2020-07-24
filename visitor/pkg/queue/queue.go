@@ -7,7 +7,7 @@ import (
 )
 
 type visitor interface {
-	JoinToQueue(q Queue)
+	InQueue(q Queue) (ok bool, err error)
 }
 
 // Queue interface describes the behavior of a queue
@@ -16,7 +16,8 @@ type Queue interface {
 	Pop() (value int)
 	Len() (len int)
 	String() (str string)
-	Accept(v visitor)
+	Search(toFind int) (ok bool)
+	Accept(v visitor) (ok bool, err error)
 }
 
 type elem struct {
@@ -30,8 +31,8 @@ type queue struct {
 }
 
 // Accept accepts the visitor
-func (q *queue) Accept(v visitor) {
-	v.JoinToQueue(q)
+func (q *queue) Accept(v visitor) (ok bool, err error) {
+	return v.InQueue(q)
 }
 
 // Push creates a new queue element with a value and pushes it to the end of the queue
@@ -60,6 +61,16 @@ func (q *queue) String() (str string) {
 // Len returns the number of elements
 func (q *queue) Len() (len int) {
 	return q.len
+}
+
+// Search searches items value in the queue
+func (q *queue) Search(toFind int) (ok bool) {
+	for tmp := q.head; tmp != nil; tmp = tmp.next {
+		if tmp.value == toFind {
+			return true
+		}
+	}
+	return
 }
 
 func (q *queue) push(new *elem) {
