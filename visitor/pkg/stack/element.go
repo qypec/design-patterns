@@ -5,9 +5,8 @@ type elem struct {
 	prev  *elem
 }
 
-func newElem(value int) *elem {
-	return &elem{
+func newElem(value int) elem {
+	return elem{
 		value: value,
-		prev:  nil,
 	}
 }

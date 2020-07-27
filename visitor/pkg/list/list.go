@@ -57,11 +57,11 @@ func (l *list) Len() (len int) {
 	return l.len
 }
 
-func (l *list) push(new *elem) {
+func (l *list) push(new elem) {
 	if l.len != 0 {
 		new.next = l.head
 	}
-	l.head = new
+	l.head = &new
 	l.len++
 }
 
@@ -76,8 +76,5 @@ func (l *list) pop() (value int) {
 
 // NewList creates an instance of the List
 func NewList() List {
-	return &list{
-		nil,
-		0,
-	}
+	return &list{}
 }

@@ -68,12 +68,12 @@ func (q *queue) Search(toFind int) (ok bool) {
 	return
 }
 
-func (q *queue) push(new *elem) {
+func (q *queue) push(new elem) {
 	tmp := &q.head
 	for *tmp != nil {
 		tmp = &(*tmp).next
 	}
-	*tmp = new
+	*tmp = &new
 	q.len++
 }
 
@@ -88,8 +88,5 @@ func (q *queue) pop() (value int) {
 
 // NewQueue creates an instance of the Queue
 func NewQueue() Queue {
-	return &queue{
-		nil,
-		0,
-	}
+	return &queue{}
 }

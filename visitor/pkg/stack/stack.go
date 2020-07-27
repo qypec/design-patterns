@@ -20,7 +20,8 @@ type Stack interface {
 }
 
 type stack struct {
-	head *elem // The head element of the stack is the last element added
+	// The head element of the stack is the last element added
+	head *elem
 	len  int
 }
 
@@ -57,11 +58,11 @@ func (s *stack) Len() (len int) {
 	return s.len
 }
 
-func (s *stack) push(new *elem) {
+func (s *stack) push(new elem) {
 	if s.len != 0 {
 		new.prev = s.head
 	}
-	s.head = new
+	s.head = &new
 	s.len++
 }
 
@@ -78,8 +79,5 @@ func (s *stack) pop() (value int, empty bool) {
 
 // NewStack creates an instance of the Stack
 func NewStack() Stack {
-	return &stack{
-		nil,
-		0,
-	}
+	return &stack{}
 }
